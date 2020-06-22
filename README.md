@@ -87,3 +87,12 @@ DESC table_name;
 ```SQL
 DROP TABLE table_name;
 ```
+
+# Adding Data to Tables
+
+```SQL
+INSERT INTO table_name (col_1, col_2)
+VALUES  (val_1, val_2),
+        (val_3, val_4),
+        (val_5, val_6);
+```
