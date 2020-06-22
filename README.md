@@ -57,3 +57,33 @@ There are many data types in SQL. You'll use a subset based on your needs, which
 `INT` represents a whole number (up to a max value of 2147483647). `INT`s can be negative or 0.
 
 `VARCHAR` represents a variable-length string between 1 and 255 characters.
+
+# Creating Tables
+
+```SQL
+CREATE TABLE table_name
+(
+  column_name data_type,
+  column_name data_type
+);
+```
+
+```SQL
+SHOW TABLES;
+```
+
+```SQL
+SHOW COLUMNS FROM table_name;
+```
+
+or (though they are technically different)
+
+```SQL
+DESC table_name;
+```
+
+# Deleting Tables
+
+```SQL
+DROP TABLE table_name;
+```
