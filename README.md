@@ -96,3 +96,28 @@ VALUES  (val_1, val_2),
         (val_3, val_4),
         (val_5, val_6);
 ```
+
+### MySQL Warnings
+
+If you try to insert data that defies the data type or limits for a column, you'll get a warning. To see them use
+
+```SQL
+SHOW WARNINGS;
+```
+
+## NULL and NOT_NULL
+
+`NULL` indicates an unknown value. It does not mean zero.
+
+You can require values by specifying that a field is `NOT NULL`.
+
+## Setting Deafult Values
+
+```SQL
+CREATE TABLE table_name (
+  name VARCHAR(50) DEFAULT 'No name provided',
+  age INT DEFAULT 21
+);
+```
+
+You can combine `NOT NULL` and `DEFAULT` to prevent `NULL` being deliberately inserted.
