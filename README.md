@@ -121,3 +121,18 @@ CREATE TABLE table_name (
 ```
 
 You can combine `NOT NULL` and `DEFAULT` to prevent `NULL` being deliberately inserted.
+
+# Primary Keys
+
+Each record needs to be uniquely identifiable. The easiest way to do this is to assign an ID.
+
+A Primary Key is a unique identifier on a row.
+
+```SQL
+CREATE TABLE unique_cats (
+  cat_id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100),
+  age INT,
+  PRIMARY KEY (cat_id)
+  );
+```
