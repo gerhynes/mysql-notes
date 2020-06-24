@@ -136,3 +136,25 @@ CREATE TABLE unique_cats (
   PRIMARY KEY (cat_id)
   );
 ```
+
+# CRUD Commands
+
+- CREATE - `INSERT INTO`
+
+- READ - `SELECT ... FROM`
+
+## WHERE Clause
+
+```SQL
+SELECT * FROM cats WHERE age = 4;
+```
+
+By default the `WHERE` clause is case insensitive.
+
+## Aliases
+
+Aliases can make your results easier to read.
+
+```SQL
+SELECT name AS cat_name FROM cats;
+```
