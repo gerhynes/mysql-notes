@@ -139,9 +139,13 @@ CREATE TABLE unique_cats (
 
 # CRUD Commands
 
-- CREATE - `INSERT INTO`
+- CREATE - `INSERT INTO ...`
 
-- READ - `SELECT ... FROM`
+- READ - `SELECT ... FROM ...`
+
+- UPDATE - `UPDATE ... SET ... WHERE ...`
+
+- DELETE - `DELETE FROM ... WHERE ...`
 
 ## WHERE Clause
 
@@ -158,3 +162,11 @@ Aliases can make your results easier to read.
 ```SQL
 SELECT name AS cat_name FROM cats;
 ```
+
+## Updating
+
+When updating, use `SELECT` first to make sure you're targeting the right data.
+
+## Deleting
+
+`DELETE FROM table_name` will delete all the contents of the table, unlike `DROP TABLE table_name` which will delete the table itself.
