@@ -170,3 +170,11 @@ When updating, use `SELECT` first to make sure you're targeting the right data.
 ## Deleting
 
 `DELETE FROM table_name` will delete all the contents of the table, unlike `DROP TABLE table_name` which will delete the table itself.
+
+## String Functions
+
+String functions allow you to alter how you print out your data.
+
+## Executing SQL files
+
+`source path_to_file/file_name.sql`
