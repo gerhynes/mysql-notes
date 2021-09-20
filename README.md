@@ -1,10 +1,14 @@
-# What is a Database?
+# MySQL Notes
+
+Notes from Colt Steele's MySQL Bootcamp.
+
+## What is a Database?
 
 A database is (1) a collection of data and (2) contains a method for accessing and manipulating that data. In other words, it's a structured set of computerized data with an accessible interface.
 
 A Database Management System is the programme that lets you interface with the data in your database, for example PostgreSQL, MySQL, Oracle Database, SQLite.
 
-# MySQL vs SQL
+## MySQL vs SQL
 
 SQL (Structrured Query Language) is the language you use to talk to your database.
 
@@ -18,19 +22,19 @@ SELECT * FROM Users WHERE Age >= 18;
 
 What makes database management systems unique are the features they offer, not the language.
 
-# Creating Databases
+## Creating Databases
 
 ```SQL
 CREATE DATABASE database_name;
 ```
 
-# Dropping Databases
+## Dropping Databases
 
 ```SQL
 DROP DATABASE database_name;
 ```
 
-# Using Databases
+## Using Databases
 
 In MySQl the `USE` command specifies which database you want to work with.
 
@@ -40,7 +44,7 @@ USE database_name;
 
 `SELECT database();` shows you the currently used database.
 
-# Tables
+## Tables
 
 Tables are the heart of SQL. A relational database is just a bunch of tables.
 
@@ -58,7 +62,7 @@ There are many data types in SQL. You'll use a subset based on your needs, which
 
 `VARCHAR` represents a variable-length string between 1 and 255 characters.
 
-# Creating Tables
+## Creating Tables
 
 ```SQL
 CREATE TABLE table_name
@@ -82,7 +86,7 @@ or (though they are technically different)
 DESC table_name;
 ```
 
-# Deleting Tables
+## Deleting Tables
 
 ```SQL
 DROP TABLE table_name;
@@ -122,7 +126,7 @@ CREATE TABLE table_name (
 
 You can combine `NOT NULL` and `DEFAULT` to prevent `NULL` being deliberately inserted.
 
-# Primary Keys
+## Primary Keys
 
 Each record needs to be uniquely identifiable. The easiest way to do this is to assign an ID.
 
@@ -137,7 +141,7 @@ CREATE TABLE unique_cats (
   );
 ```
 
-# CRUD Commands
+## CRUD Commands
 
 - CREATE - `INSERT INTO ...`
 
@@ -175,6 +179,22 @@ When updating, use `SELECT` first to make sure you're targeting the right data.
 
 String functions allow you to alter how you print out your data.
 
-## Executing SQL files
+### Executing SQL files
 
 `source path_to_file/file_name.sql`
+
+### CONCAT
+
+`CONCAT` lets you combine data for cleaner output.
+
+```sql
+CONCAT (column, 'text', anotherColumn, 'more text')
+
+SELECT CONCAT (author_fname, ' ', author_lname) AS full_name FROM books;
+```
+
+`CONCAT_WS` stands for Concat with Seperator, which is useful when you are concatenating multiple fields together with the same symbol.
+
+```sql
+SELECT CONCAT_WS(' - ', title, author_fname, author_lname) FROM books;
+```
