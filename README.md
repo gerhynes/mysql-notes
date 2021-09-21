@@ -198,3 +198,30 @@ SELECT CONCAT (author_fname, ' ', author_lname) AS full_name FROM books;
 ```sql
 SELECT CONCAT_WS(' - ', title, author_fname, author_lname) FROM books;
 ```
+
+### SUBSTRING
+
+`SUBSTRING` (or `SUBSTR`) lets you select individual parts of a string.
+
+You can set a start and end index. If you don't provide an end index, it will include the remainder of the string. If you provide a negative index, it will count back from the end of the string.
+
+**MySQL indexes from 1, not 0.**
+
+```sql
+SELECT SUBSTRING ('Hello World', 1, 4);
+-- Hell
+
+SELECT SUBSTRING ('Hello World', 7;
+-- World
+
+SELECT SUBSTRING('Hello World', -3);
+-- rld
+
+SELECT SUBSTRING(title, 1, 10) AS 'short title' FROM books;
+```
+
+You can combine string functions.
+
+```sql
+SELECT CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title' FROM books;
+```
