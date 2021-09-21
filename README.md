@@ -177,7 +177,7 @@ When updating, use `SELECT` first to make sure you're targeting the right data.
 
 ## String Functions
 
-String functions allow you to alter how you print out your data.
+String functions allow you to alter how you print out your data. They do not change the data in the database.
 
 ### Executing SQL files
 
@@ -220,8 +220,56 @@ SELECT SUBSTRING('Hello World', -3);
 SELECT SUBSTRING(title, 1, 10) AS 'short title' FROM books;
 ```
 
-You can combine string functions.
+You can combine string functions. The inner function will be evaluated first.
 
 ```sql
-SELECT CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title' FROM books;
+SELECT
+  CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title'
+FROM books;
+```
+
+### REPLACE
+
+`REPLACE` replaces parts of a string. It is case sensitive.
+
+```sql
+SELECT REPLACE('Hello World', 'Hell', '%$#@');
+-- %$#@o World
+
+SELECT REPLACE('cheese bread coffee milk', ' ', ' and ');
+-- cheese and bread and coffee and milk
+```
+
+### REVERSE
+
+`REVERSE` lets you reverse a string.
+
+```sql
+SELECT REVERSE('Hello World');
+-- dlroW olleH
+```
+
+### CHAR_LENGTH
+
+`CHAR_LENGTH` counts the characters in a given string.
+
+```sql
+SELECT CHAR_LENGTH('Hello World');
+-- 11
+
+SELECT
+  CONCAT(author_lname, ' is ', CHAR_LENGTH(author_lname), ' characters long')
+FROM books;
+```
+
+### UPPER and LOWER
+
+`UPPER` and `LOWER` will change a string's case.
+
+```sql
+SELECT UPPER('Hello World');
+-- HELLO WORLD
+
+SELECT LOWER('Hello World');
+-- hello world
 ```
