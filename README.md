@@ -103,7 +103,7 @@ VALUES  (val_1, val_2),
 
 ### MySQL Warnings
 
-If you try to insert data that defies the data type or limits for a column, you'll get a warning. To see them use
+If you try to insert data that defies the data type or limits for a column, you'll get a warning. To see a list of them, use:
 
 ```SQL
 SHOW WARNINGS;
@@ -220,14 +220,6 @@ SELECT SUBSTRING('Hello World', -3);
 SELECT SUBSTRING(title, 1, 10) AS 'short title' FROM books;
 ```
 
-You can combine string functions. The inner function will be evaluated first.
-
-```sql
-SELECT
-  CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title'
-FROM books;
-```
-
 ### REPLACE
 
 `REPLACE` replaces parts of a string. It is case sensitive.
@@ -272,4 +264,36 @@ SELECT UPPER('Hello World');
 
 SELECT LOWER('Hello World');
 -- hello world
+```
+
+You can combine string functions. The inner function will be evaluated first.
+
+```sql
+SELECT
+  CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title'
+FROM books;
+```
+
+But keep in mind how many arguments a string function expects. For example, `CONCAT` expects two arguments.
+
+```sql
+✅ SELECT UPPER(CONCAT(author_fname, ' ', author_lname)) AS "full name in caps" FROM books; -- This works
+
+❌ SELECT CONCAT(UPPER(author_fname, ' ', author_lname)) AS "full name in caps" FROM books; -- This doesn't work
+```
+
+## Refining Selections
+
+### DISTINCT
+
+`DISTINCT` is used in conjunction with `SELECT` to exclude duplicate results.
+
+```sql
+SELECT DISTINCT author_lname FROM books;
+```
+
+You can apply `DISTINCT` to a combination of values.
+
+```sql
+SELECT DISTINCT author_fname, author_lname FROM books;
 ```
