@@ -297,3 +297,30 @@ You can apply `DISTINCT` to a combination of values.
 ```sql
 SELECT DISTINCT author_fname, author_lname FROM books;
 ```
+
+## ORDER BY
+
+`ORDER BY` lets you sort your results.
+
+```sql
+SELECT author_lname FROM books ORDER BY author_lname;
+```
+
+By default, it is in ascending alphanumeric order. You can specify if you want ascending or descending order with `ASC` or `DESC`.
+
+```sql
+SELECT author_lname FROM books ORDER BY author_lname DESC;
+```
+
+If you are selecting multiple fields you can specify which field to sort by with its number.
+
+```sql
+-- order by author_fname
+SELECT title, author_fname, author_lname FROM books ORDER BY 2;
+```
+
+You can order by two different columns, though you won't very often. It will use the second column if there are any conflicts.
+
+```sql
+SELECT author_fname, author_lname FROM books ORDER BY author_lname, author_fname;
+```
