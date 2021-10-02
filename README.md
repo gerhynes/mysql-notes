@@ -324,3 +324,32 @@ You can order by two different columns, though you won't very often. It will use
 ```sql
 SELECT author_fname, author_lname FROM books ORDER BY author_lname, author_fname;
 ```
+
+## LIMIT
+
+`LIMIT` lets you specify a number for how many results you want to select. It's often used in conjunction with `ORDER BY`.
+
+You can use a comma-seperated list to specify a starting point and limit (which could be useful for pagination). If you want to select all rows from a certain point to the end of the table you'll have to do this.
+
+```sql
+SELECT title, released_year FROM books ORDER BY released_year LIMIT 5;
+
+-- skip 10 rows, return 15 rows
+SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 10, 15;
+```
+
+## LIKE
+
+`LIKE` allows for fuzzier searching than `WHERE`. 
+
+It's case-insensitive, `%` serves as a wildcard for any characters, and `_` serves as a wildcard to specify exactly one character. 
+
+If you're searching for a field with '%' or '_' in it, you escape it with a \, `%\%%`.
+
+```sql
+-- returns where title is: anything da anything
+SELECT * from books WHERE author_fname LIKE '%da%';
+
+-- returns where stock quantity is 4 characters lon
+SELECT * from books WHERE stock_quantity LIKE '____';
+```
