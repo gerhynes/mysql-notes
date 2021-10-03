@@ -340,11 +340,11 @@ SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 10, 15;
 
 ## LIKE
 
-`LIKE` allows for fuzzier searching than `WHERE`. 
+`LIKE` allows for fuzzier searching than `WHERE`.
 
-It's case-insensitive, `%` serves as a wildcard for any characters, and `_` serves as a wildcard to specify exactly one character. 
+It's case-insensitive, `%` serves as a wildcard for any characters, and `_` serves as a wildcard to specify exactly one character.
 
-If you're searching for a field with '%' or '_' in it, you escape it with a \, `%\%%`.
+If you're searching for a field with '%' or '\_' in it, you escape it with a \, `%\%%`.
 
 ```sql
 -- returns where title is: anything da anything
@@ -352,4 +352,23 @@ SELECT * from books WHERE author_fname LIKE '%da%';
 
 -- returns where stock quantity is 4 characters lon
 SELECT * from books WHERE stock_quantity LIKE '____';
+```
+
+## Aggregate Functions
+
+Aggregate functions let you combine data to get meaning out of it, for example finding totals and averages.
+
+## COUNT
+
+`COUNT` will count whatever you tell it to count.
+
+```sql
+-- returns total number of rows
+SELECT COUNT(*) FROM books;
+
+-- returns number of distinct first names
+SELECT COUNT(DISTINCT author_fname) FROM books;
+
+-- returns total number of unique authors
+SELECT COUNT(DISTINCT author_fname, author_lname) FROM books;
 ```
