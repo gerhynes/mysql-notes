@@ -372,3 +372,19 @@ SELECT COUNT(DISTINCT author_fname) FROM books;
 -- returns total number of unique authors
 SELECT COUNT(DISTINCT author_fname, author_lname) FROM books;
 ```
+
+## GROUP BY
+
+`GROUP BY` summarizes or aggregates identical data into single rows.
+
+For example, you could group books by author and then count how many books each author has written.
+
+```sql
+-- groups books by author last name and counts groups
+SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname;
+
+-- returns total number of books published per year
+SELECT CONCAT('In ', released_year, ' ', COUNT(*), ' book(s) released') AS year FROM books GROUP BY released_year;
+```
+
+Note: From MySQL 5.7, `ONLY_FULL_GROUP_BY` mode is enabled by default and a selection will produce an error if the select list, `HAVING` condition, or `ORDER BY` list refer to nonaggregated columns that are neither named in the `GROUP BY` clause nor are functionally dependent on (uniquely determined by) `GROUP BY` columns.
