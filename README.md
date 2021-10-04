@@ -388,3 +388,31 @@ SELECT CONCAT('In ', released_year, ' ', COUNT(*), ' book(s) released') AS year 
 ```
 
 Note: From MySQL 5.7, `ONLY_FULL_GROUP_BY` mode is enabled by default and a selection will produce an error if the select list, `HAVING` condition, or `ORDER BY` list refer to nonaggregated columns that are neither named in the `GROUP BY` clause nor are functionally dependent on (uniquely determined by) `GROUP BY` columns.
+
+## MIN and MAX
+
+`MIN` and `MAX` help you find minimum and maximum values, on their own or combined with `GROUP BY`.
+
+```sql
+-- returns earliest release year
+SELECT MIN(released_year) FROM books;
+
+-- returns longest book
+SELECT MAX(pages) FROM books;
+
+-- returns title and pagecount of shortest book (subquery)
+SELECT title, pages FROM books WHERE pages = (SELECT MIN(pages) FROM books);
+
+-- returns title and pagecount of shortest book (faster)
+SELECT title, pages FROM books ORDER BY pages ASC LIMIT 1;
+```
+
+Subqueries are a little bit slow since each query is run independently.
+
+```sql
+-- returns first year each author was publised
+SELECT author_fname, author_lname, MIN(released_year) FROM books GROUP BY author_lname, author_fname;
+
+-- returns longest book for each author
+SELECT CONCAT(author_fname, ' ', author_lname) AS author, MAX(pages) AS 'longest book' FROM books GROUP BY author_lname, author_fname;
+```
