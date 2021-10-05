@@ -416,3 +416,27 @@ SELECT author_fname, author_lname, MIN(released_year) FROM books GROUP BY author
 -- returns longest book for each author
 SELECT CONCAT(author_fname, ' ', author_lname) AS author, MAX(pages) AS 'longest book' FROM books GROUP BY author_lname, author_fname;
 ```
+
+## SUM
+
+`SUM` sums together data.
+
+```sql
+-- returns the total number of pages in all books
+SELECT SUM(pages) FROM books;
+
+-- returns total pages written by each author
+SELECT author_fname, author_lname, SUM(pages) FROM books GROUP BY author_lname, author_fname;
+```
+
+## AVG
+
+`AVG` averages data. Will return a decimal to four places from an integer.
+
+```sql
+-- returns average release year of all books
+SELECT AVG(released_year) FROM books;
+
+-- returns the average stock quantity of books by release year
+SELECT released_year, AVG(stock_quantity) FROM books GROUP BY released_year;
+```
