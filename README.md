@@ -489,3 +489,82 @@ While `DECIMAL` is a fixed-point type and calculations are exact, `FLOAT` and `D
 | DOUBLE    | 8 bytes       | ~15 digits |
 
 Try to use `DECIMAL` unless precision doesn't matter.
+
+## Dates and Times
+
+## DATE
+
+`DATE` stores a date in the format 'YYYY-MM-DD' with no time specified.
+
+## TIME
+
+`TIME` stores a time in the format 'HH:MM:SS' with no date specified.
+
+## DATETIME
+
+`DATETIME` stores values with both date and time in the format 'YYYY-MM-DD HH:MM:SS'.
+
+Often you'll record the datetime for when a record is created.
+
+```sql
+INSERT INTO people (name, birthdate, birthtime, birthdt)
+VALUES('Padma', '1983-11-11', '10:07:35', '1983-11-11 10:07:35');
+```
+
+## CURDATE
+
+`CURDATE()` gives you the current date.
+
+## CURTIME
+
+`CURTIME()` gives you the current time.
+
+## NOW
+
+`NOW()` gives you the current datetime.
+
+## Formatting Dates
+
+MySQL has several functions for formatting dates, including:
+
+- `DAY()` will extract the day element of a date (1 to 31)
+- `DAYNAME()` will return the name of the day (Monday to Sunday)
+- `DAYOFWEEK()` will return the number of the day (from 1 (Sunday) to 7 (Saturday))
+- `DAYOFYEAR()` will return the day of the year (from 1 to 365)
+- `MONTH()` will extract the month from the date (from 1 to 12)
+- `MONTHNAME()` will return the name of the month (January to December)
+
+If used on a time rather than a date or datetime, these functions will return NULL.
+
+If working with times or datetimes, you can use:
+
+- `HOUR` will extract the hour from the time (0 to 23)
+- `MINUTE` will extract the minute from the time (0 to 59)
+
+## DATE_FORMAT
+
+`DATE_FORMAT` formats the date values according to the format string provided.
+
+```sql
+-- return dd/mm/yyyy
+SELECT DATE_FORMAT(birthdt, '%m/%d/%Y') FROM people;
+
+SELECT DATE_FORMAT(birthdt, '%m/%d/%Y at %h:%i') FROM people;
+
+-- 'Sunday October 2009'
+SELECT DATE_FORMAT('2009-10-04 22:23:00', '%W %M %Y');
+```
+
+The format string uses specifiers such as
+
+| Specifier | Description                     |
+| --------- | ------------------------------- |
+| %i        | Minutes, numeric (00..59)       |
+| %H        | Hour (00..23)                   |
+| %W        | Weekday name (Sunday..Saturday) |
+| %M        | Month name (January..December)  |
+| %m        | Month, numeric (00..12)         |
+| %Y        | Year, numeric (four digits)     |
+| %y        | Year, numeric (two digits)      |
+
+See the [MySQL Docs](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format) for a full reference.
