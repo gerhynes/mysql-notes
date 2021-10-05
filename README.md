@@ -92,7 +92,7 @@ DESC table_name;
 DROP TABLE table_name;
 ```
 
-# Adding Data to Tables
+## Adding Data to Tables
 
 ```SQL
 INSERT INTO table_name (col_1, col_2)
@@ -183,7 +183,7 @@ String functions allow you to alter how you print out your data. They do not cha
 
 `source path_to_file/file_name.sql`
 
-### CONCAT
+## CONCAT
 
 `CONCAT` lets you combine data for cleaner output.
 
@@ -199,7 +199,7 @@ SELECT CONCAT (author_fname, ' ', author_lname) AS full_name FROM books;
 SELECT CONCAT_WS(' - ', title, author_fname, author_lname) FROM books;
 ```
 
-### SUBSTRING
+## SUBSTRING
 
 `SUBSTRING` (or `SUBSTR`) lets you select individual parts of a string.
 
@@ -220,7 +220,7 @@ SELECT SUBSTRING('Hello World', -3);
 SELECT SUBSTRING(title, 1, 10) AS 'short title' FROM books;
 ```
 
-### REPLACE
+## REPLACE
 
 `REPLACE` replaces parts of a string. It is case sensitive.
 
@@ -232,7 +232,7 @@ SELECT REPLACE('cheese bread coffee milk', ' ', ' and ');
 -- cheese and bread and coffee and milk
 ```
 
-### REVERSE
+## REVERSE
 
 `REVERSE` lets you reverse a string.
 
@@ -241,7 +241,7 @@ SELECT REVERSE('Hello World');
 -- dlroW olleH
 ```
 
-### CHAR_LENGTH
+## CHAR_LENGTH
 
 `CHAR_LENGTH` counts the characters in a given string.
 
@@ -254,7 +254,7 @@ SELECT
 FROM books;
 ```
 
-### UPPER and LOWER
+## UPPER and LOWER
 
 `UPPER` and `LOWER` will change a string's case.
 
@@ -284,7 +284,7 @@ But keep in mind how many arguments a string function expects. For example, `CON
 
 ## Refining Selections
 
-### DISTINCT
+## DISTINCT
 
 `DISTINCT` is used in conjunction with `SELECT` to exclude duplicate results.
 
@@ -440,3 +440,52 @@ SELECT AVG(released_year) FROM books;
 -- returns the average stock quantity of books by release year
 SELECT released_year, AVG(stock_quantity) FROM books GROUP BY released_year;
 ```
+
+## Data Types
+
+## Storing Text
+
+## VARCHAR and CHAR
+
+`VARCHAR` and `CHAR` both store text.
+
+The length of a `CHAR` column is fixed to the length you declared when you created the table. It can be any value from 0 to 255. When `CHAR` values are stored, they are right-padded with spaces up to the specified length. When `CHAR` values are retrieved, any trailing spaces are removed unless the `PAD_CHAR_TO_FULL_LENGTH` SQL mode is enabled.
+
+`CHAR` is faster for fixed length text, for example: state abbreviations (CA, NY), yes/no flags.
+
+| Value     | Char(4) | Storage | Varchar(4) | Storage |
+| --------- | ------- | ------- | ---------- | ------- |
+| ''        | ' '     | 4 bytes | ''         | 1 byte  |
+| 'ab'      | 'ab '   | 4 bytes | 'ab'       | 3 byte  |
+| 'abcd'    | 'abcd'  | 4 bytes | 'abcd'     | 5 byte  |
+| 'abcdefg' | 'abcd'  | 4 bytes | 'abcdefg'  | 5 byte  |
+
+## Numbers
+
+## INT
+
+`INT` stores whole numbers.
+
+## DECIMAL
+
+`DECIMAL` can include a decimal point. `DECIMAL` takes precision (total number of digits, up to 65) and scale (digits after decimal, up to 30) values. The scale value can't be bigger than the precision value.
+
+If you try to insert a value greater than the maximum allowed, the largest possible decimal will be inserted.
+
+```sql
+-- can store up to 999.99
+DECIMAL(5,2)
+```
+
+## FLOAT and DOUBLE
+
+While `DECIMAL` is a fixed-point type and calculations are exact, `FLOAT` and `DOUBLE` are floating-point types and calculations are approximate.
+
+`FLOAT` and `DOUBLE` can store larger numbers using less space but it comes at the cost of precision.
+
+| Data Type | Memory Needed | Precision  |
+| --------- | ------------- | ---------- |
+| FLOAT     | 4 bytes       | ~7 digits  |
+| DOUBLE    | 8 bytes       | ~15 digits |
+
+Try to use `DECIMAL` unless precision doesn't matter.
