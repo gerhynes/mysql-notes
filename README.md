@@ -568,3 +568,58 @@ The format string uses specifiers such as
 | %y        | Year, numeric (two digits)      |
 
 See the [MySQL Docs](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format) for a full reference.
+
+## Date Maths
+
+There are two main functions for doing calculations around dates.
+
+## DATEDIFF
+
+`DATEDIFF()` takes in two dates (or datetimes), subtracts the second from the first and tells you the number of days between them.
+
+```sql
+-- 1
+SELECT DATEDIFF('2007-12-31 23:59:59', '2007-12-30');
+
+-- -31
+SELECT DATEDIFF('2010-11-30 23:59:59', '2010-12-31');
+
+SELECT DATEDIFF(NOW(), '2020-10-06');
+```
+
+## DATEADD
+
+`DATE_ADD()` performs date arithmetic. It takes in a date argument for the starting date/datetime and an interval value. `DATE_SUB()` works in the same way.
+
+You can use +/- as a shorthand.
+
+```sql
+-- '2018-05-02'
+SELECT DATE_ADD('2018-05-01', INTERVAL 1 DAY);
+SELECT '2018-05-01' + INTERVAL 1 DAY;
+
+-- '2017-05-01'
+SELECT DATE_SUB('2018-05-01', INTERVAL 1 YEAR);
+SELECT '2018-05-01' - INTERVAL 1 YEAR;
+```
+
+## Working with TIMESTAMPS
+
+Timestamp is a generic term for storing metadata about when something is created or updated.
+
+In MySQL, `TIMESTAMP` is also a datatype.
+
+Both `DATETIME` and `TIMESTAMP` store date and time information. The main difference is the range of times and dates they support.
+
+`DATETIME` can go back to the year 1000 and up to 9999, `TIMESTAMP` only goes back to 1970 and up to 2038.
+
+`TIMESTAMP` is 4 bytes while `DATETIME` is 8 bytes.
+
+You can set MySQL to update the timestamp for a row whenever the row is changed.
+
+```sql
+CREATE TABLE comments(
+  content VARCHAR(100)
+  changed_at TIMESTAMP DEFAULT NOW() ON UPDATE NOW()
+);
+```
