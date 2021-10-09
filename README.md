@@ -623,3 +623,58 @@ CREATE TABLE comments(
   changed_at TIMESTAMP DEFAULT NOW() ON UPDATE NOW()
 );
 ```
+
+## Logical Operators
+
+## Not Equal
+
+`!=` lets you query where two values are not equal.
+
+```sql
+-- returns books not published in 2017
+SELECT title FROM books WHERE year != 2017;
+```
+
+## Not Like
+
+`NOT LIKE` is the opposite of `LIKE`. It lets you exclude results based off patterns in strings.
+
+```sql
+-- returns books with titles not starting with 'W'
+SELECT title FROM books WHERE title NOT LIKE 'W%';
+```
+
+## Greater Than
+
+`>` lets you query based off a value being greater than another.
+
+```sql
+-- returns books published after 2000
+SELECT title FROM books WHERE released_year > 2000;
+```
+
+`>=` works the same way, where a value is greater than or equal to another.
+
+```sql
+-- returns books with 100 or more in stock
+SELECT title, stock_quantity FROM books WHERE stock_quantity >= 100;
+```
+
+### Aside - Boolean logic in MySQL
+
+If you run `SELECT 99 > 1;` you'll get back `1`. MySQL has evaluated the query as true, represented by 1. If the query had evaluated to false, it would return 0.
+
+If you run `SELECT 'a' > 'b';` you'll get 0 as this is false in MySQL.
+
+If you run `SELECT 'A' > 'a';` you'll get 0 as this is also false but `SELECT 'A' >= 'a';` returns 1 since MySQL considers them equivalent.
+
+When you run a query, behind the scenes MySQL is essentially evaluating it against each row and returning that row if the result evaluates as true.
+
+## Less Than
+
+`<` lets you query based off a value being less than another.
+
+```sql
+-- returns books published before 2000
+SELECT title FROM books WHERE released_year < 2000;
+```
