@@ -28,13 +28,13 @@ What makes database management systems unique are the features they offer, not t
 CREATE DATABASE database_name;
 ```
 
-## Dropping Databases
+### Dropping Databases
 
 ```SQL
 DROP DATABASE database_name;
 ```
 
-## Using Databases
+### Using Databases
 
 In MySQl the `USE` command specifies which database you want to work with.
 
@@ -44,7 +44,7 @@ USE database_name;
 
 `SELECT database();` shows you the currently used database.
 
-## Tables
+### Tables
 
 Tables are the heart of SQL. A relational database is just a bunch of tables.
 
@@ -52,7 +52,7 @@ Tables are a collection of related data held in a structured format within a dat
 
 Within tables, columns act as headers, rows contain the actual data.
 
-## Data Types
+### Data Types
 
 When you create a new table you need to specify what data types its columns will contain. You cannot have inconsistent data types, for example strings and numbers mixed.
 
@@ -62,7 +62,7 @@ There are many data types in SQL. You'll use a subset based on your needs, which
 
 `VARCHAR` represents a variable-length string between 1 and 255 characters.
 
-## Creating Tables
+### Creating Tables
 
 ```SQL
 CREATE TABLE table_name
@@ -86,13 +86,13 @@ or (though they are technically different)
 DESC table_name;
 ```
 
-## Deleting Tables
+### Deleting Tables
 
 ```SQL
 DROP TABLE table_name;
 ```
 
-## Adding Data to Tables
+## Inserting Data into Tables
 
 ```SQL
 INSERT INTO table_name (col_1, col_2)
@@ -109,13 +109,13 @@ If you try to insert data that defies the data type or limits for a column, you'
 SHOW WARNINGS;
 ```
 
-## NULL and NOT_NULL
+### NULL and NOT_NULL
 
 `NULL` indicates an unknown value. It does not mean zero.
 
 You can require values by specifying that a field is `NOT NULL`.
 
-## Setting Deafult Values
+### Setting Deafult Values
 
 ```SQL
 CREATE TABLE table_name (
@@ -126,7 +126,7 @@ CREATE TABLE table_name (
 
 You can combine `NOT NULL` and `DEFAULT` to prevent `NULL` being deliberately inserted.
 
-## Primary Keys
+### Primary Keys
 
 Each record needs to be uniquely identifiable. The easiest way to do this is to assign an ID.
 
@@ -151,7 +151,7 @@ CREATE TABLE unique_cats (
 
 - DELETE - `DELETE FROM ... WHERE ...`
 
-## WHERE Clause
+### WHERE Clause
 
 ```SQL
 SELECT * FROM cats WHERE age = 4;
@@ -159,7 +159,7 @@ SELECT * FROM cats WHERE age = 4;
 
 By default the `WHERE` clause is case insensitive.
 
-## Aliases
+### Aliases
 
 Aliases can make your results easier to read.
 
@@ -167,11 +167,11 @@ Aliases can make your results easier to read.
 SELECT name AS cat_name FROM cats;
 ```
 
-## Updating
+### Updating
 
 When updating, use `SELECT` first to make sure you're targeting the right data.
 
-## Deleting
+### Deleting
 
 `DELETE FROM table_name` will delete all the contents of the table, unlike `DROP TABLE table_name` which will delete the table itself.
 
@@ -183,7 +183,7 @@ String functions allow you to alter how you print out your data. They do not cha
 
 `source path_to_file/file_name.sql`
 
-## CONCAT
+### CONCAT
 
 `CONCAT` lets you combine data for cleaner output.
 
@@ -199,7 +199,7 @@ SELECT CONCAT (author_fname, ' ', author_lname) AS full_name FROM books;
 SELECT CONCAT_WS(' - ', title, author_fname, author_lname) FROM books;
 ```
 
-## SUBSTRING
+### SUBSTRING
 
 `SUBSTRING` (or `SUBSTR`) lets you select individual parts of a string.
 
@@ -220,7 +220,7 @@ SELECT SUBSTRING('Hello World', -3);
 SELECT SUBSTRING(title, 1, 10) AS 'short title' FROM books;
 ```
 
-## REPLACE
+### REPLACE
 
 `REPLACE` replaces parts of a string. It is case sensitive.
 
@@ -232,7 +232,7 @@ SELECT REPLACE('cheese bread coffee milk', ' ', ' and ');
 -- cheese and bread and coffee and milk
 ```
 
-## REVERSE
+### REVERSE
 
 `REVERSE` lets you reverse a string.
 
@@ -241,7 +241,7 @@ SELECT REVERSE('Hello World');
 -- dlroW olleH
 ```
 
-## CHAR_LENGTH
+### CHAR_LENGTH
 
 `CHAR_LENGTH` counts the characters in a given string.
 
@@ -254,7 +254,7 @@ SELECT
 FROM books;
 ```
 
-## UPPER and LOWER
+### UPPER and LOWER
 
 `UPPER` and `LOWER` will change a string's case.
 
@@ -284,7 +284,7 @@ But keep in mind how many arguments a string function expects. For example, `CON
 
 ## Refining Selections
 
-## DISTINCT
+### DISTINCT
 
 `DISTINCT` is used in conjunction with `SELECT` to exclude duplicate results.
 
@@ -298,7 +298,7 @@ You can apply `DISTINCT` to a combination of values.
 SELECT DISTINCT author_fname, author_lname FROM books;
 ```
 
-## ORDER BY
+### ORDER BY
 
 `ORDER BY` lets you sort your results.
 
@@ -325,7 +325,7 @@ You can order by two different columns, though you won't very often. It will use
 SELECT author_fname, author_lname FROM books ORDER BY author_lname, author_fname;
 ```
 
-## LIMIT
+### LIMIT
 
 `LIMIT` lets you specify a number for how many results you want to select. It's often used in conjunction with `ORDER BY`.
 
@@ -338,7 +338,7 @@ SELECT title, released_year FROM books ORDER BY released_year LIMIT 5;
 SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 10, 15;
 ```
 
-## LIKE
+### LIKE
 
 `LIKE` allows for fuzzier searching than `WHERE`.
 
@@ -358,7 +358,7 @@ SELECT * from books WHERE stock_quantity LIKE '____';
 
 Aggregate functions let you combine data to get meaning out of it, for example finding totals and averages.
 
-## COUNT
+### COUNT
 
 `COUNT` will count whatever you tell it to count.
 
@@ -373,7 +373,7 @@ SELECT COUNT(DISTINCT author_fname) FROM books;
 SELECT COUNT(DISTINCT author_fname, author_lname) FROM books;
 ```
 
-## GROUP BY
+### GROUP BY
 
 `GROUP BY` summarizes or aggregates identical data into single rows.
 
@@ -389,7 +389,7 @@ SELECT CONCAT('In ', released_year, ' ', COUNT(*), ' book(s) released') AS year 
 
 Note: From MySQL 5.7, `ONLY_FULL_GROUP_BY` mode is enabled by default and a selection will produce an error if the select list, `HAVING` condition, or `ORDER BY` list refer to nonaggregated columns that are neither named in the `GROUP BY` clause nor are functionally dependent on (uniquely determined by) `GROUP BY` columns.
 
-## MIN and MAX
+### MIN and MAX
 
 `MIN` and `MAX` help you find minimum and maximum values, on their own or combined with `GROUP BY`.
 
@@ -417,7 +417,7 @@ SELECT author_fname, author_lname, MIN(released_year) FROM books GROUP BY author
 SELECT CONCAT(author_fname, ' ', author_lname) AS author, MAX(pages) AS 'longest book' FROM books GROUP BY author_lname, author_fname;
 ```
 
-## SUM
+### SUM
 
 `SUM` sums together data.
 
@@ -429,7 +429,7 @@ SELECT SUM(pages) FROM books;
 SELECT author_fname, author_lname, SUM(pages) FROM books GROUP BY author_lname, author_fname;
 ```
 
-## AVG
+### AVG
 
 `AVG` averages data. Will return a decimal to four places from an integer.
 
@@ -441,11 +441,11 @@ SELECT AVG(released_year) FROM books;
 SELECT released_year, AVG(stock_quantity) FROM books GROUP BY released_year;
 ```
 
-## Data Types
+## Revisiting Data Types
 
-## Storing Text
+### Storing Text
 
-## VARCHAR and CHAR
+### VARCHAR and CHAR
 
 `VARCHAR` and `CHAR` both store text.
 
@@ -460,13 +460,13 @@ The length of a `CHAR` column is fixed to the length you declared when you creat
 | 'abcd'    | 'abcd'  | 4 bytes | 'abcd'     | 5 byte  |
 | 'abcdefg' | 'abcd'  | 4 bytes | 'abcdefg'  | 5 byte  |
 
-## Numbers
+### Numbers
 
-## INT
+### INT
 
 `INT` stores whole numbers.
 
-## DECIMAL
+### DECIMAL
 
 `DECIMAL` can include a decimal point. `DECIMAL` takes precision (total number of digits, up to 65) and scale (digits after decimal, up to 30) values. The scale value can't be bigger than the precision value.
 
@@ -477,7 +477,7 @@ If you try to insert a value greater than the maximum allowed, the largest possi
 DECIMAL(5,2)
 ```
 
-## FLOAT and DOUBLE
+### FLOAT and DOUBLE
 
 While `DECIMAL` is a fixed-point type and calculations are exact, `FLOAT` and `DOUBLE` are floating-point types and calculations are approximate.
 
@@ -490,17 +490,17 @@ While `DECIMAL` is a fixed-point type and calculations are exact, `FLOAT` and `D
 
 Try to use `DECIMAL` unless precision doesn't matter.
 
-## Dates and Times
+### Dates and Times
 
-## DATE
+### DATE
 
 `DATE` stores a date in the format 'YYYY-MM-DD' with no time specified.
 
-## TIME
+### TIME
 
 `TIME` stores a time in the format 'HH:MM:SS' with no date specified.
 
-## DATETIME
+### DATETIME
 
 `DATETIME` stores values with both date and time in the format 'YYYY-MM-DD HH:MM:SS'.
 
@@ -511,19 +511,19 @@ INSERT INTO people (name, birthdate, birthtime, birthdt)
 VALUES('Padma', '1983-11-11', '10:07:35', '1983-11-11 10:07:35');
 ```
 
-## CURDATE
+### CURDATE
 
 `CURDATE()` gives you the current date.
 
-## CURTIME
+### CURTIME
 
 `CURTIME()` gives you the current time.
 
-## NOW
+### NOW
 
 `NOW()` gives you the current datetime.
 
-## Formatting Dates
+### Formatting Dates
 
 MySQL has several functions for formatting dates, including:
 
@@ -541,7 +541,7 @@ If working with times or datetimes, you can use:
 - `HOUR` will extract the hour from the time (0 to 23)
 - `MINUTE` will extract the minute from the time (0 to 59)
 
-## DATE_FORMAT
+### DATE_FORMAT
 
 `DATE_FORMAT` formats the date values according to the format string provided.
 
@@ -569,11 +569,11 @@ The format string uses specifiers such as
 
 See the [MySQL Docs](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format) for a full reference.
 
-## Date Maths
+### Date Maths
 
 There are two main functions for doing calculations around dates.
 
-## DATEDIFF
+### DATEDIFF
 
 `DATEDIFF()` takes in two dates (or datetimes), subtracts the second from the first and tells you the number of days between them.
 
@@ -587,7 +587,7 @@ SELECT DATEDIFF('2010-11-30 23:59:59', '2010-12-31');
 SELECT DATEDIFF(NOW(), '2020-10-06');
 ```
 
-## DATEADD
+### DATEADD
 
 `DATE_ADD()` performs date arithmetic. It takes in a date argument for the starting date/datetime and an interval value. `DATE_SUB()` works in the same way.
 
@@ -603,7 +603,7 @@ SELECT DATE_SUB('2018-05-01', INTERVAL 1 YEAR);
 SELECT '2018-05-01' - INTERVAL 1 YEAR;
 ```
 
-## Working with TIMESTAMPS
+### Working with TIMESTAMPS
 
 Timestamp is a generic term for storing metadata about when something is created or updated.
 
@@ -626,7 +626,7 @@ CREATE TABLE comments(
 
 ## Logical Operators
 
-## Not Equal
+### Not Equal
 
 `!=` lets you query where two values are not equal.
 
@@ -635,7 +635,7 @@ CREATE TABLE comments(
 SELECT title FROM books WHERE year != 2017;
 ```
 
-## Not Like
+### Not Like
 
 `NOT LIKE` is the opposite of `LIKE`. It lets you exclude results based off patterns in strings.
 
@@ -644,7 +644,7 @@ SELECT title FROM books WHERE year != 2017;
 SELECT title FROM books WHERE title NOT LIKE 'W%';
 ```
 
-## Greater Than
+### Greater Than
 
 `>` lets you query based off a value being greater than another.
 
@@ -660,7 +660,7 @@ SELECT title FROM books WHERE released_year > 2000;
 SELECT title, stock_quantity FROM books WHERE stock_quantity >= 100;
 ```
 
-### Aside - Boolean logic in MySQL
+#### Aside - Boolean logic in MySQL
 
 If you run `SELECT 99 > 1;` you'll get back `1`. MySQL has evaluated the query as true, represented by 1. If the query had evaluated to false, it would return 0.
 
@@ -670,11 +670,20 @@ If you run `SELECT 'A' > 'a';` you'll get 0 as this is also false but `SELECT 'A
 
 When you run a query, behind the scenes MySQL is essentially evaluating it against each row and returning that row if the result evaluates as true.
 
-## Less Than
+### Less Than
 
 `<` lets you query based off a value being less than another.
 
 ```sql
 -- returns books published before 2000
 SELECT title FROM books WHERE released_year < 2000;
+```
+
+### Logical AND
+
+`AND` (or `&&` in MySQL 7 or older) lets you chain together multiple pieces of logic. All values need to evaluate to true.
+
+```sql
+-- returns books published by David Eggers after 2010
+SELECT * FROM books WHERE author_lname = 'Eggers' AND released_year > 2010;
 ```
