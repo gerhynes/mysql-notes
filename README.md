@@ -431,7 +431,7 @@ SELECT author_fname, author_lname, SUM(pages) FROM books GROUP BY author_lname, 
 
 ### AVG
 
-`AVG` averages data. Will return a decimal to four places from an integer.
+`AVG` averages data. It will return a decimal to four places from an integer.
 
 ```sql
 -- returns average release year of all books
@@ -456,9 +456,9 @@ The length of a `CHAR` column is fixed to the length you declared when you creat
 | Value     | Char(4) | Storage | Varchar(4) | Storage |
 | --------- | ------- | ------- | ---------- | ------- |
 | ''        | ' '     | 4 bytes | ''         | 1 byte  |
-| 'ab'      | 'ab '   | 4 bytes | 'ab'       | 3 byte  |
-| 'abcd'    | 'abcd'  | 4 bytes | 'abcd'     | 5 byte  |
-| 'abcdefg' | 'abcd'  | 4 bytes | 'abcdefg'  | 5 byte  |
+| 'ab'      | 'ab '   | 4 bytes | 'ab'       | 3 bytes |
+| 'abcd'    | 'abcd'  | 4 bytes | 'abcd'     | 5 bytes |
+| 'abcdefg' | 'abcd'  | 4 bytes | 'abcdefg'  | 5 bytes |
 
 ### Numbers
 
@@ -681,9 +681,65 @@ SELECT title FROM books WHERE released_year < 2000;
 
 ### Logical AND
 
-`AND` (or `&&` in MySQL 7 or older) lets you chain together multiple pieces of logic. All values need to evaluate to true.
+`AND` (or `&&` in MySQL 7 or older) lets you chain together multiple pieces of logic. All conditions need to evaluate to true.
 
 ```sql
 -- returns books published by David Eggers after 2010
 SELECT * FROM books WHERE author_lname = 'Eggers' AND released_year > 2010;
+```
+
+### Logical OR
+
+`OR` (or `||` in MySQL 7 or older) lets you return data when at least one condition is true.
+
+```sql
+-- returns books published by David Eggers and all books published after 2010
+SELECT * FROM books WHERE author_lname = 'Eggers' OR released_year > 2010;
+```
+
+### BETWEEN
+
+`BETWEEN` lets you query data based off values between an upper and lower range (inclusive). You can also do this by combining `>=` and `<=`.
+
+```sql
+-- returns books published between 2004 and 2015
+SELECT title, released_year FROM books WHERE released_year BETWEEN 2004 AND 2015;
+```
+
+`NOT BETWEEN` works on the same principal.
+
+```sql
+-- returns books published in 2004 or earlier and 2015 or later
+SELECT title, released_year FROM books WHERE released_year NOT BETWEEN 2004 AND 2015;
+```
+
+MySQL is smart enough to treat strings in date format as dates. For best results, however, when using `BETWEEN` with date and time values, use `CAST()` to make sure they are both the same data type. For example, with a date and a datetime, convert the date into a datetime.
+
+```sql
+SELECT CAST('2017-05-02' AS DATETIME);
+```
+
+### IN and NOT IN
+
+`IN` lets you check if a given column is in a set of values.
+
+```sql
+-- returns books authored by Carver, Lahiri or Smith
+SELECT title, author_lname FROM books WHERE author_lname IN ('Carver', 'Lahiri', 'Smith');
+```
+
+`NOT IN` lets you check if a value isn't in a set of values.
+
+```sql
+-- returns books not authored by Carver, Lahiri or Smith
+SELECT title, author_lname FROM books WHERE author_lname NOT IN ('Carver', 'Lahiri', 'Smith');
+```
+
+### Modulo
+
+`%` lets you test if a value is evenly divisible. It gives you the remainder after you divide two values.
+
+```sql
+-- returns books published after 2000 and not in even numbered years
+SELECT title, released_year FROM books WHERE released_year >= 2000 AND released_year % 2 != 0;
 ```
