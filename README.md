@@ -743,3 +743,28 @@ SELECT title, author_lname FROM books WHERE author_lname NOT IN ('Carver', 'Lahi
 -- returns books published after 2000 and not in even numbered years
 SELECT title, released_year FROM books WHERE released_year >= 2000 AND released_year % 2 != 0;
 ```
+
+### Case Statements
+
+Case statements allow you to add conditional logic to your queries.
+
+```sql
+-- groups books as GENRE where books published in 2000 or later are 'Modern Lit' and books published earlier are '20th Century Lit'
+SELECT title, released_year,
+  CASE
+    WHEN released_year >= 2000 THEN 'Modern Lit'
+    ELSE '20th Century Lit'
+  END AS Genre
+FROM books;
+
+-- returns graphical indication of stock quantity
+SELECT title, stock_quantity
+  CASE
+    WHEN stock_quantity <= 50 THEN '*'
+    WHEN stock_quantity <= 100 THEN '**'
+    ELSE '***'
+  END AS STOCK
+FROM books;
+```
+
+
