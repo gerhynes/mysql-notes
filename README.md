@@ -767,4 +767,24 @@ SELECT title, stock_quantity
 FROM books;
 ```
 
+## Relationships and Joins
 
+Real world data is messy and interrelated.
+
+Even a simple blog site might have data about users, posts, tags and comments.
+
+With books, you also need to keep track of editions, multiple authors, customers, orders, genres and reviews.
+
+### Types of Relationships
+
+- One to one relationships
+- One to many relationships
+- Many to many relationships
+
+A one to one relationship might be between a Customers table and a Customer Details table.
+
+A one to many relationship might be between one Book and many Reviews.
+
+A many to many relationship might between Books and Authors.
+
+### One to Many
