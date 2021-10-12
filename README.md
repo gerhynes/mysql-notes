@@ -788,3 +788,51 @@ A one to many relationship might be between one Book and many Reviews.
 A many to many relationship might between Books and Authors.
 
 ### One to Many
+
+1:Many is the most common relationship.
+
+A classic example is customers to orders. A customer can have many orders, an order has one customer associated with it.
+
+CUSTOMERS
+
+| customer_id | first_name | last_name | email            |
+| ----------- | ---------- | --------- | ---------------- |
+| 1           | Boy        | George    | george@gmail.com |
+| 2           | George     | Michaela  | gm@gmail.com     |
+| 3           | David      | Bowie     | david@gmail.com  |
+| 4           | Blue       | Steele    | blue@gmail.com   |
+
+ORDERS
+
+| order_id | order_date   | amount | customer_id |
+| -------- | ------------ | ------ | ----------- |
+| 1        | '2016-02-10' | 99.99  | 1           |
+| 2        | '2017-11-11' | 35.50  | 1           |
+| 3        | '2014-12-12' | 800.67 | 2           |
+| 4        | '2015-01-03' | 12.50  | 2           |
+
+The **Primary Key** is the unique identifier for a table. In the Customers table, it's customer_id. In the orders table, it's order_id.
+
+**Foreign Keys** are references to another table from within a given table. In the Orders table, it's customer_id.
+
+### Working with Primary and Foreign Keys
+
+When creating tables you add constraints on certain fields to establish that they are a Primary Key (and must be unique) or a Foreign Key (and references the Primary Key of another table).
+
+The convention is to name a Foreign key after the table and column it references, such as customer_id.
+
+```sql
+CREATE TABLE customers(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ...
+)
+
+CREATE TABLE orders(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ...
+  customer_id INT,
+  FOREIGN KEY(customer_id) REFERENCES customers(id)
+)
+```
+
+### Cross Joins
