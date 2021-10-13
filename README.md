@@ -847,9 +847,11 @@ SELECT * FROM customers, orders;
 
 ### Inner Joins
 
-Inner joins let you select all records from two tables where the join condition is met. This creates a union table.
+Inner joins let you select all records from table A and table B where the join condition is met. This creates a union table.
 
 You can do this implicitly, but it is standard practice to do it explicitly using `JOIN table_name ... ON condition`.
+
+You can explicitly write `INNER JOIN` but you don't have to.
 
 ```sql
 -- implicit inner join
@@ -858,3 +860,44 @@ SELECT first_name, last_name, order_date, amount FROM customers, orders WHERE cu
 -- explicit inner join
 SELECT first_name, last_name, order_date, amount FROM customers JOIN orders ON customers.id = orders.customer_id;
 ```
+
+You can still use aggregate functions on the results of a join.
+
+```sql
+SELECT first_name, last_name, SUM(amount) AS total_spent
+FROM customers
+JOIN orders
+ON customers.id = orders.customer_id
+GROUP BY orders.customer_id
+ORDER BY total_spent DESC;
+```
+
+### Left Joins
+
+Left joins let you select records from table A along with any matching records from table B.
+
+Where there isn't a match, the value will be `NULL`. You can use `IFNULL(value, replacement)` to replace null values with 0 for example.
+
+```sql
+-- left join
+SELECT first_name, last_name, order_date, amount
+FROM customers
+JOIN orders
+    ON customers.id = orders.customer_id
+ORDER BY order_date;
+
+-- left join, replace null values
+SELECT
+    first_name,
+    last_name,
+    IFNULL(SUM(amount), 0) AS total_spent
+FROM customers
+LEFT JOIN orders
+ON customers.id = orders.customer_id
+GROUP BY customers.id
+ORDER BY total_spent DESC;
+```
+
+[Animated visualization of left join](./images/left-join-animated.gif)
+
+Animated visual from The Data School of [how left joins work](https://dataschool.com/how-to-teach-people-sql/left-right-join-animated/).
