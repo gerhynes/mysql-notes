@@ -836,3 +836,25 @@ CREATE TABLE orders(
 ```
 
 ### Cross Joins
+
+Joins let you join two tables in a number of different configurations.
+
+The most basic join (a cross join) would take every customer and conjoin them with every order.
+
+```sql
+SELECT * FROM customers, orders;
+```
+
+### Inner Joins
+
+Inner joins let you select all records from two tables where the join condition is met. This creates a union table.
+
+You can do this implicitly, but it is standard practice to do it explicitly using `JOIN table_name ... ON condition`.
+
+```sql
+-- implicit inner join
+SELECT first_name, last_name, order_date, amount FROM customers, orders WHERE customers.id = orders.customer_id;
+
+-- explicit inner join
+SELECT first_name, last_name, order_date, amount FROM customers JOIN orders ON customers.id = orders.customer_id;
+```
