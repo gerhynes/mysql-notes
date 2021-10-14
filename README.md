@@ -825,14 +825,14 @@ The convention is to name a Foreign key after the table and column it references
 CREATE TABLE customers(
   id INT AUTO_INCREMENT PRIMARY KEY,
   ...
-)
+);
 
 CREATE TABLE orders(
   id INT AUTO_INCREMENT PRIMARY KEY,
   ...
   customer_id INT,
   FOREIGN KEY(customer_id) REFERENCES customers(id)
-)
+);
 ```
 
 ### Cross Joins
@@ -882,7 +882,7 @@ Where there isn't a match, the value will be `NULL`. You can use `IFNULL(value, 
 -- left join
 SELECT first_name, last_name, order_date, amount
 FROM customers
-JOIN orders
+LEFT JOIN orders
     ON customers.id = orders.customer_id
 ORDER BY order_date;
 
@@ -898,6 +898,48 @@ GROUP BY customers.id
 ORDER BY total_spent DESC;
 ```
 
-[Animated visualization of left join](./images/left-join-animated.gif)
+![Animated visualization of left join](./images/left-join-animated.gif)
 
 Animated visual from The Data School of [how left joins work](https://dataschool.com/how-to-teach-people-sql/left-right-join-animated/).
+
+### Rights Joins
+
+Right joins let you select records from table B along with any matching records from table A.
+
+```sql
+-- right join
+SELECT first_name, last_name, order_date, amount
+FROM customers
+RIGHT JOIN orders
+    ON customers.id = orders.customer_id
+ORDER BY order_date;
+```
+
+![Animated visualization of right join](./images/right-join-animated.gif)
+
+Animated visual from The Data School of [how left joins work](https://dataschool.com/how-to-teach-people-sql/left-right-join-animated/).
+
+If there's something in the orders table that doesn't have a match in customers, that would mean there is no customer or a wrong id. Here a RIGHT JOIN would uncover the error.
+
+If you try to delete a customer that an order is referencing, you will get an error due to the foreign key constraint.
+
+### On Delete Cascade
+
+If you want to delete a record and have every record that relates to it also be deleted, add `ON DELETE CASCADE` when defining the foreign key.
+
+```sql
+CREATE TABLE orders(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ...
+  customer_id INT,
+  FOREIGN KEY(customer_id)
+  REFERENCES customers(id)
+  ON DELETE CASCADE
+);
+```
+
+### Difference between LEFT and RIGHT JOINS
+
+There is not much difference between a `LEFT JOIN` and a `RIGHT JOIN`.
+
+The result will include all rows from one of the joined tables, even if a given row has no match in the other table. The main difference between a `LEFT JOIN` and a `RIGHT JOIN` is whether the left or right table is the one from which you get all rows.
