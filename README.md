@@ -943,3 +943,15 @@ CREATE TABLE orders(
 There is not much difference between a `LEFT JOIN` and a `RIGHT JOIN`.
 
 The result will include all rows from one of the joined tables, even if a given row has no match in the other table. The main difference between a `LEFT JOIN` and a `RIGHT JOIN` is whether the left or right table is the one from which you get all rows.
+
+## Many to Many
+
+In the real world, things will often have many to many relationships.
+
+- Books <-> Authors
+- Students <-> Classes
+- Social Media Posts <-> Hashtags
+
+To describe a many to many relationship between two entities, you need three tables: one for each entity and a **union table** to connect them.
+
+For example, Reviewers and Series are joined through a Reviews table. Reviews will have a foreign key pointing to Series and another pointing to Reviewers.
