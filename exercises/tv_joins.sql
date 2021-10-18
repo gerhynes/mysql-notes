@@ -15,3 +15,20 @@ JOIN reviews
     ON series.id = reviews.series_id
 GROUP BY series.id
 ORDER BY avg_rating;
+
+-- Challenge 3
+SELECT 
+    first_name, 
+    last_name, 
+    rating 
+FROM reviewers
+INNER JOIN reviews
+    ON reviewers.id = reviews.reviewer_id;
+
+-- Challenge 4
+SELECT 
+    title AS unreviewed_series
+FROM series 
+LEFT JOIN reviews
+    ON series.id = reviews.series_id
+WHERE rating IS NULL;
