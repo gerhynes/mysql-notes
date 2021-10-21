@@ -767,6 +767,12 @@ SELECT title, stock_quantity
 FROM books;
 ```
 
+For simple case statements, you can use `IF`:
+
+```sql
+IF(stock_quantity >= 1 'In stock', 'Out of stock')
+```
+
 ## Relationships and Joins
 
 Real world data is messy and interrelated.
