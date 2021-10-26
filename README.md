@@ -961,3 +961,20 @@ In the real world, things will often have many to many relationships.
 To describe a many to many relationship between two entities, you need three tables: one for each entity and a **union table** to connect them.
 
 For example, Reviewers and Series are joined through a Reviews table. Reviews will have a foreign key pointing to Series and another pointing to Reviewers.
+
+### Constraints
+
+Say you wanted to ensure that the same user cannot like the same post multiple times.
+
+You can use `PRIMARY KEY(user_id, photo_id)` to ensure that each like has to have a unique combination of `user_id` and `photo_id`.
+
+```sql
+CREATE TABLE likes (
+  user_id INT NOT NULL,
+  photo_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  FOREIGN KEY(user_id) REFERENCES users(id),
+  FOREIGN KEY(photo_id) REFERENCES photos(id),
+  PRIMARY KEY(user_id, photo_id)
+);
+```
