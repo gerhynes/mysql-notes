@@ -962,6 +962,8 @@ To describe a many to many relationship between two entities, you need three tab
 
 For example, Reviewers and Series are joined through a Reviews table. Reviews will have a foreign key pointing to Series and another pointing to Reviewers.
 
+## Instagram database clone
+
 ### Constraints
 
 Say you wanted to ensure that the same user cannot like the same post multiple times.
@@ -978,3 +980,21 @@ CREATE TABLE likes (
   PRIMARY KEY(user_id, photo_id)
 );
 ```
+
+### Hashtags
+
+You have a few options for storing data about hashtags:
+
+1. Concatenate tags and store them as a VARCHAR.
+  - Easy to implement
+  - Limited number of tags can be stored
+  - Can't stire additional information
+  - Searching is more difficult
+2. Use two tables - posts and hashtags
+  - Unlimited number of tags
+  - Slower
+3. Use three tables, posts, tags and post_tags
+  - Unlimited number of tags
+  - Can add additional information
+  - More work when inserting/updating
+  - Have to worry about orphans
