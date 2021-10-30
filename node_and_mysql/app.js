@@ -11,9 +11,15 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
-  if (error) throw error;
-  console.log("The solution is: ", results[0].solution);
-});
+const person = { email: faker.internet.email(), created_at: faker.date.past() };
+
+connection.query(
+  "INSERT INTO users SET ?",
+  person,
+  function (error, results, fields) {
+    if (error) throw error;
+    console.log(results);
+  }
+);
 
 connection.end();
