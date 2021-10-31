@@ -986,15 +986,73 @@ CREATE TABLE likes (
 You have a few options for storing data about hashtags:
 
 1. Concatenate tags and store them as a VARCHAR.
-  - Easy to implement
-  - Limited number of tags can be stored
-  - Can't stire additional information
-  - Searching is more difficult
+
+- Easy to implement
+- Limited number of tags can be stored
+- Can't stire additional information
+- Searching is more difficult
+
 2. Use two tables - posts and hashtags
-  - Unlimited number of tags
-  - Slower
+
+- Unlimited number of tags
+- Slower
+
 3. Use three tables, posts, tags and post_tags
-  - Unlimited number of tags
-  - Can add additional information
-  - More work when inserting/updating
-  - Have to worry about orphans
+
+- Unlimited number of tags
+- Can add additional information
+- More work when inserting/updating
+- Have to worry about orphans
+
+## MySQL and Other Languages
+
+Your users do not interact with the database directly. Between the user and the database sits your application which takes requests from the user, checks authorization, queries the database and assembles a response for the user.
+
+You application can be written in any number of languages.
+
+PHP was once the dominant langauge used with MySQL. It has declined in popularity while languages like JavaScript have grown.
+
+There are various packages for connecting Node to MySQL. The `mysqljs/mysql` package is not well maintained but `mysql2` is mostly API compatible with it.
+
+The packages convert the values you are working with into the datatypes required by either Node or MySQL. For example, Date objects are converted to 'YYYY-mm-dd HH:ii:ss' strings.
+
+For example, if you wanted to insert data for 500 fake users, you could do this using `faker` and `mysql2`.
+
+```sql
+-- schema.sql
+CREATE TABLE users (
+  email VARCHAR(255) PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+```js
+// app.js
+const faker = require("faker");
+const mysql = require("mysql2");
+require("dotenv").config();
+
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB
+});
+
+connection.connect();
+
+const data = [];
+
+for (let i = 0; i < 500; i++) {
+  data.push([faker.internet.email(), faker.date.past()]);
+}
+
+const q = "INSERT INTO users (email, created_at) VALUES ?";
+
+connection.query(q, [data], function (error, results, fields) {
+  if (error) throw error;
+  console.log(results);
+});
+
+connection.end();
+```
