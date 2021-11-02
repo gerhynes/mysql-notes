@@ -2,11 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const faker = require("faker");
 const mysql = require("mysql2");
+const bodyParser = require("body-parser");
 
 const app = express();
 const port = 3000;
 
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -25,6 +27,19 @@ app.get("/", function (req, res) {
     const count = results[0].count;
     res.render("home", { count });
   });
+});
+
+app.post("/register", function (req, res) {
+  const person = { email: req.body.email };
+  connection.query(
+    "INSERT INTO users SET ?",
+    person,
+    function (error, results, fields) {
+      if (error) throw error;
+      console.log(results);
+      res.redirect("/");
+    }
+  );
 });
 
 app.listen(port, () => {
