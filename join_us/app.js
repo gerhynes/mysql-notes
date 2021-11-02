@@ -9,6 +9,7 @@ const port = 3000;
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,

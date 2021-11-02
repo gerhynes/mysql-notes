@@ -1,9 +1,26 @@
-<h1>Join Us!</h1>
-<p class="lead">
-  Enter your email to join <strong><%=count%></strong> others on our waitlist.
-  We are 100% not a cult.
-</p>
-<form method="POST" action="/register">
-  <input type="text" name="email" id="email" placeholder="Enter your email" />
-  <button>Join Now</button>
-</form>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/app.css" />
+<div class="flex-container">
+  <div class="container">
+    <h1>Join Us!</h1>
+    <p class="lead">
+      Enter your email to join <strong><%=count%></strong> others on our
+      waitlist. We are 100% not a cult.
+    </p>
+    <form method="POST" action="/register">
+      <input
+        type="text"
+        name="email"
+        id="email"
+        class="form"
+        placeholder="Enter your email"
+      />
+      <button>Join Now</button>
+    </form>
+  </div>
+</div>
