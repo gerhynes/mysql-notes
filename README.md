@@ -1056,3 +1056,27 @@ connection.query(q, [data], function (error, results, fields) {
 
 connection.end();
 ```
+
+## Database Triggers
+
+Database triggers are SQL statements that are automatically run when a specific table is changed.
+
+The syntax is:
+
+```sql
+CREATE TRIGGER trigger_name
+  trigger_time trigger_event ON table_name FOR EACH ROW
+  BEGIN
+  ...
+  END;
+```
+
+`trigger_time` can be set to `BEFORE` an event or `AFTER` an event.
+
+`trigger_event` can be caused by an `INSERT`, `UPDATE` or `DELETE`.
+
+For example, you could run some code immediately before you inserted into the photos table or immediately after you updated the users table.
+
+You can use triggers to validate/enforce specific constraints on your data. You could also just do that in your application code and not attempt an INSERT.
+
+You could use a trigger to create a new record every time a user unfollows someone (when they delete a follow).
