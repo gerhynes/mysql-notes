@@ -1080,3 +1080,19 @@ For example, you could run some code immediately before you inserted into the ph
 You can use triggers to validate/enforce specific constraints on your data. You could also just do that in your application code and not attempt an INSERT.
 
 You could use a trigger to create a new record every time a user unfollows someone (when they delete a follow).
+
+```sql
+DELIMITER $$
+
+CREATE TRIGGER must_be_adult
+  BEFORE INSERT ON people FOR EACH ROW
+  BEGIN
+    IF NEW.age < 18
+    THEN
+      SIGNAL SQLSTATE '4500'
+        SET MESSAGE_TEXT = 'Must be an adult!';
+    END IF
+  END
+$$
+DELIMITER ;
+```
