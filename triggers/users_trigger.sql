@@ -7,7 +7,7 @@ CREATE TRIGGER must_be_adult
     THEN
       SIGNAL SQLSTATE '4500'
         SET MESSAGE_TEXT = 'Must be an adult!';
-    END IF
-  END
+    END IF;
+  END;
 $$
 DELIMITER ;

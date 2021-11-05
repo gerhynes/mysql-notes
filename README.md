@@ -1071,6 +1071,8 @@ CREATE TRIGGER trigger_name
   END;
 ```
 
+The trigger always includes a trigger time, trigger event and table.
+
 `trigger_time` can be set to `BEFORE` an event or `AFTER` an event.
 
 `trigger_event` can be caused by an `INSERT`, `UPDATE` or `DELETE`.
@@ -1091,8 +1093,21 @@ CREATE TRIGGER must_be_adult
     THEN
       SIGNAL SQLSTATE '4500'
         SET MESSAGE_TEXT = 'Must be an adult!';
-    END IF
-  END
+    END IF;
+  END;
 $$
 DELIMITER ;
 ```
+
+`NEW` refers to the data about to be inserted.
+
+There are 3 components to a MySQL error:
+
+1. A numeric error code (such as 1146). This number is MySQL-specific.
+2. A five-character `SQLSTATE` value (auch as '42502'). The values are tken from ANSI SQL and ODBC and are more standardised.
+3. A message string describing the error.
+
+45000 is a generic state representing "unhandled user-defined exception".
+
+`DELIMITER` lets you specify a delimiter, typically `$$`,
+so you can use the multiple semicolons you need to build up the trigger without MySQL treating the first semicolon as the delimiter.
