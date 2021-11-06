@@ -1111,3 +1111,15 @@ There are 3 components to a MySQL error:
 
 `DELIMITER` lets you specify a delimiter, typically `$$`,
 so you can use the multiple semicolons you need to build up the trigger without MySQL treating the first semicolon as the delimiter.
+
+### Managing Triggers
+
+You can use `SHOW TRIGGERS;` to list the trigger in a database.
+
+You can remove a trigger using `DROP TRIGGER trigger_name;`.
+
+### A Warning About Triggers
+
+Triggers can make debugging hard. You have no way of identifying that something is happening because of a trigger.
+
+Some developers have a tendency to chain triggers together. This is frowned upon and typically there is a better way using your application code.
