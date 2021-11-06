@@ -1,3 +1,4 @@
+-- Prevent self-follows
 DELIMITER $$
 
 CREATE TRIGGER prevent_self_follow
@@ -8,6 +9,20 @@ CREATE TRIGGER prevent_self_follow
       SIGNAL SQLSTATE '45000'
       SET MESSAGE_TEXT = 'You cannot follow yourself';
     END IF;
+  END;
+$$
+
+DELIMITER ;
+
+-- log unfollows
+DELIMITER $$
+
+CREATE TRIGGER capture_unfollow
+  AFTER DELETE ON follows FOR EACH ROW
+  BEGIN
+    INSERT INTO unfollows
+    SET follower_id = OLD.follower_id,
+        followee_id = OLD.followee_id;
   END;
 $$
 
