@@ -143,13 +143,39 @@ CREATE TABLE unique_cats (
 
 ## CRUD Commands
 
-- CREATE - `INSERT INTO ...`
+CRUD stands for Create, Read, Update and Delete. These are the four main operations you perform on your data.
 
-- READ - `SELECT ... FROM ...`
+### CREATE
 
-- UPDATE - `UPDATE ... SET ... WHERE ...`
+The syntax for creating a record is `INSERT INTO table_name(column_name1, column_name2) VALUES (value1, value2)`
 
-- DELETE - `DELETE FROM ... WHERE ...`
+```sql
+INSERT INTO cats(name, age) VALUES(‘Taco’, 14);
+```
+
+### READ
+
+The syntax for reading a record is `SELECT column_name FROM table_name`.
+
+```sql
+SELECT cat_id, name, age, breed FROM cats;
+```
+
+### UPDATE
+
+The syntax for updating a record is `UPDATE table_name SET column_name = value WHERE condition`
+
+```sql
+UPDATE cats SET breed='Shorthair' WHERE breed='Tabby';
+```
+
+### DELETE
+
+The syntax for deleting a record is `DELETE FROM table_name WHERE condition`
+
+```sql
+DELETE FROM cats WHERE cat_id = age;
+```
 
 ### WHERE Clause
 
@@ -161,17 +187,17 @@ By default the `WHERE` clause is case insensitive.
 
 ### Aliases
 
-Aliases can make your results easier to read.
+Aliases can make your results easier to read by giving a descriptive title to the data that comes back.
 
 ```SQL
 SELECT name AS cat_name FROM cats;
 ```
 
-### Updating
+### Before Updating
 
 When updating, use `SELECT` first to make sure you're targeting the right data.
 
-### Deleting
+### Deleting vs Dropping
 
 `DELETE FROM table_name` will delete all the contents of the table, unlike `DROP TABLE table_name` which will delete the table itself.
 
