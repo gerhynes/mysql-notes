@@ -413,6 +413,16 @@ SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname;
 SELECT CONCAT('In ', released_year, ' ', COUNT(*), ' book(s) released') AS year FROM books GROUP BY released_year;
 ```
 
+### HAVING
+
+`HAVING` lets you filter groups of rows. It works with `GROUP BY` similar to how `WHERE` works with `SELECT`.
+
+The syntax is:
+
+```sql
+SELECT column_name FROM table_name WHERE condition GROUP BY column_name HAVING group_condition;
+```
+
 Note: From MySQL 5.7, `ONLY_FULL_GROUP_BY` mode is enabled by default and a selection will produce an error if the select list, `HAVING` condition, or `ORDER BY` list refer to nonaggregated columns that are neither named in the `GROUP BY` clause nor are functionally dependent on (uniquely determined by) `GROUP BY` columns.
 
 ### MIN and MAX
